@@ -2,6 +2,22 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function createFloatingHearts() {
+    const heartsContainer = document.querySelector('.hearts-bg');
+    const hearts = ['♥', '💕', '💖', '💗', '💜', '💙'];
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 6 + 's';
+        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        heartsContainer.appendChild(heart);
+    }
+}
+
 function moveNonButton() {
     const button = document.getElementById('nonButton');
     const buttonWidth = button.offsetWidth;
@@ -27,18 +43,38 @@ function moveNonButton() {
     button.style.position = 'fixed';
     button.style.left = newX + 'px';
     button.style.top = newY + 'px';
+    
+    // Change text to make it more playful
+    const noTexts = ['😿 No', '😹 Try again!', '😼 Nope!', '😸 Not happening!', '😺 Nice try!'];
+    button.innerHTML = noTexts[Math.floor(Math.random() * noTexts.length)];
 }
 
 function initialize() {
-    document.getElementById('nonButton').addEventListener('mouseenter', moveNonButton);
-    window.addEventListener('resize', moveNonButton);
-    document.getElementById('nonButton').addEventListener('mouseenter', function() {
-        img.src = 'img/cats-sad.gif';
-    });
-    document.getElementById('ouiButton').addEventListener('mouseenter', function() {
-        img.src = 'img/love-cat.gif';
+    createFloatingHearts();
+    
+    const nonButton = document.getElementById('nonButton');
+    const ouiButton = document.getElementById('ouiButton');
+    const img = document.querySelector('img');
+    
+    if (nonButton) {
+        nonButton.addEventListener('mouseenter', moveNonButton);
+        nonButton.addEventListener('click', moveNonButton);
+        nonButton.addEventListener('mouseenter', function() {
+            if (img) img.src = 'img/cats-sad.gif';
+        });
+    }
+    
+    if (ouiButton && img) {
+        ouiButton.addEventListener('mouseenter', function() {
+            img.src = 'img/love-cat.gif';
+        });
+    }
+    
+    window.addEventListener('resize', function() {
+        if (nonButton && nonButton.style.position === 'fixed') {
+            moveNonButton();
+        }
     });
 }
 
-const img = document.querySelector('img');
-initialize();
+document.addEventListener('DOMContentLoaded', initialize);

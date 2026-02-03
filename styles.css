@@ -1,15 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body, html {
     height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    overflow: hidden;
+    position: relative;
 }
 
-* {
-    background-color: wheat;
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255, 182, 193, 0.6);
+    font-size: 20px;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
 }
 
 .container {
@@ -18,48 +42,143 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .button-container {
-    margin-top: 20px;
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 button {
-    margin: 10px;
-    background-color: #000000;
-    padding: 10px 20px;
+    padding: 15px 35px;
     border: none;
-    transition: left 1s ease, top 1s ease;
-    border-radius: 25%;
-    color: white;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
 }
 
-button:hover {
-    cursor: pointer;
-    background-color: #555;
+#ouiButton {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    box-shadow: 0 10px 25px rgba(238, 90, 36, 0.3);
+}
+
+#ouiButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+    background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+}
+
+#nonButton {
+    background: linear-gradient(45deg, #a8a8a8, #636e72);
+    color: white;
+    box-shadow: 0 10px 25px rgba(99, 110, 114, 0.3);
+    transition: left 1s ease, top 1s ease, all 0.3s ease;
+}
+
+#nonButton:hover {
+    background: linear-gradient(45deg, #636e72, #a8a8a8);
 }
 
 #textMain {
-    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #2d3436;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 img {
-    width: 260px;
-    height: 300px;
+    width: 280px;
+    height: 320px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 #dancingCat {
-    width: 75%;
-    height: 75%;
+    width: 60%;
+    height: 60%;
+    max-width: 400px;
+    border-radius: 25px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 h1 {
     font-family: "Dancing Script", cursive;
-    font-weight: bold;
-    font-size: 4rem;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    background: linear-gradient(45deg, #e17055, #d63031, #e84393);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
 }
 
 #textSee {
-    width: 25rem;
+    max-width: 90%;
+    margin: 0 auto;
+    color: #2d3436;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    img {
+        width: 220px;
+        height: 250px;
+    }
+    
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 200px;
+    }
 }
